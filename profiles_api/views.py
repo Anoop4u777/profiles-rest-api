@@ -98,7 +98,11 @@ class HelloViewSet(viewsets.ViewSet):
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
+    """
+    # NOTE: TokenAuthentication makes request.user as Anonymous.
+    Please refer permissions.py in the same project for more details.
+    """
+    #authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
 
     serializer_class = serializers.UserProfileSerializer

@@ -15,11 +15,14 @@ class UpdateOwnProfile(permissions.BasePermission):
             return True
         """
         Just in case for check.
+        Issue found on 22-Nov-2020.
         NOTE: Now the request.user does not work hence even if we log in as the newly created user we are unable to patch the data.
             Solutions:-
             https://stackoverflow.com/questions/54171931/django-auth-self-request-user-is-always-anonymous-in-viewset
             https://stackoverflow.com/questions/5376985/django-request-user-is-always-anonymous-user
+        Issue Resolved on 22-Nov-2020.(# NOTE: Solution is not appropriate)
+        Comment out the TokenAuthentication system as if we give this system we need to write function to get the user id.
         """
-        print('obj.id', obj.id, 'request.user.id', request.user.id)
-        print(request.user)
+        #print('obj.id', obj.id, 'request.user.id', request.user.id)
+        #print(request.user)
         return obj.id == request.user.id
