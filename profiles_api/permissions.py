@@ -21,7 +21,7 @@ class UpdateOwnProfile(permissions.BasePermission):
             https://stackoverflow.com/questions/54171931/django-auth-self-request-user-is-always-anonymous-in-viewset
             https://stackoverflow.com/questions/5376985/django-request-user-is-always-anonymous-user
         Issue Resolved on 22-Nov-2020.(# NOTE: Solution is not appropriate)
-        Comment out the TokenAuthentication system as if we give this system we need to write function to get the user id.
+        Comment out the TokenAuthentication system as if we give this permission we need to write function to get the user id.
         """
         #print('obj.id', obj.id, 'request.user.id', request.user.id)
         #print(request.user)
