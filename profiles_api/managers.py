@@ -20,6 +20,8 @@ class UserProfileManager(BaseUserManager):
         Also this is used to encrypt the data ie, we need to always encrypt the sensitive data.
         """
         user.set_password(password)
+        """Added is_staff here which is not included in the course as a staff user can only log in to the admin"""
+        user.is_staff = True
 
         """Standard procedure to save to a specific Database(or table), we can add multiple models if needed """
         user.save(using=self._db)
@@ -31,6 +33,6 @@ class UserProfileManager(BaseUserManager):
 
         user = self.create_user(email, name, password)
         user.is_superuser = True
-        user.is_staff = True
+        #user.is_staff = True
         user.save(using=self._db)
         return user
