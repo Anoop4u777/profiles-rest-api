@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import filters
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from profiles_api import serializers
 from profiles_api import models
@@ -119,3 +120,26 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class UserLoginAPiView(ObtainAuthToken):
     """Handles user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """
+    Complete functionality of ProfileFeedItem model
+    Below the SessionAuthentication is present added by myself so that in permission we get request.users,
+    but it isn't used in this course hence commented it out.
+    """
+    #authentication_classes = (TokenAuthentication, SessionAuthentication)
+    authentication_classes = (TokenAuthentication,)
+    """
+    In the below permission class all the users can see all the feed coz of IsAuthenticatedOrReadOnly,
+    Hence we add a new permission class and commented out the below one so that the logged in user can oly see his feeds.
+    """
+    #permission_classes = (permissions.UpdateOwnFeeds, IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.UpdateOwnFeeds, IsAuthenticated,)
+
+    queryset = models.ProfileFeedItem.objects.all()
+    serializer_class = serializers.ProfileFeedItemSerializer
+
+    def perform_create(self, serializer):
+        """To add the user automatically for the model."""
+        serializer.save(user_profile=self.request.user)

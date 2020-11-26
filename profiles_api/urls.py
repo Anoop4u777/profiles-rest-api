@@ -13,6 +13,7 @@ have defined it in the UserProfileViewSet using the keyword 'queryset'.
 Hence rest framework will Automatically assign a base name for it.
 """
 router.register('profile', views.UserProfileViewSet)
+router.register('feed', views.UserProfileFeedViewSet, base_name='user-feeds')
 
 urlpatterns = [
     path('hello-view/', views.HelloApiView.as_view()),
