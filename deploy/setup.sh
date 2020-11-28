@@ -6,7 +6,7 @@ set -e
 PROJECT_GIT_URL='https://github.com/Anoop4u777/profiles-rest-api.git'
 
 # Directory in which we store our project in the server
-PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
+PROJECT_BASE_PATH='/usr/local/profiles-rest-api'
 
 
 echo "Installing dependencies..."
